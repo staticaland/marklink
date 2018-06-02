@@ -11,8 +11,8 @@ It is inspired by [Titler by Brett Terpstra](http://brettterpstra.com/2015/02/18
 ## Vim
 
 ```
-nnoremap <leader>l :%!~/projects/marklink/marklink.py<CR>
-vnoremap <leader>l :!~/projects/marklink/marklink.py<CR>
+nnoremap <leader>l :%!marklink<CR>
+vnoremap <leader>l :!marklink<CR>
 ```
 
 See [Using external filter commands to reformat HTML](http://vimcasts.org/episodes/using-external-filter-commands-to-reformat-html/)
