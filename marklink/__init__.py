@@ -1,3 +1,3 @@
-from .core import *
+from .marklink import *
 
 """Convert URLs to Markdown links"""

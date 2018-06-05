@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-import requests
-import bs4
-import re
 import argparse
+import bs4
 import configargparse
+import io
+import re
+import requests
 import sys
 
 
@@ -12,8 +13,8 @@ def get_options():
     p = configargparse.ArgParser(default_config_files=['~/.marklink'])
     p.add('files', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     p.add('-q', '--remove-query', help='remove query parameters', action='store_true', default=False)
-    p.add('-r', '--replace-url', help='remove query parameters', action='store_true', default=True)
-    p.add('-l', '--create-list', help='remove query parameters', action='store_true', default=False)
+    p.add('-r', '--replace-url', help='replace plain URLs with markdown links', action='store_true', default=True)
+    p.add('-l', '--create-list', help='create a markdown list from all URLs', action='store_true', default=False)
     return p.parse_args()
 
 
@@ -74,8 +75,15 @@ def main():
 
     if opts.replace_url:
 
+        # http://effbot.org/librarybook/stringio.htm pretty cool, right?
+        f = io.StringIO('')
+
         for line in opts.files:
-            print(re.sub(regex, handle_matchobj, line), end='')
+            f.write(re.sub(regex, handle_matchobj, line))
+
+        print(f.getvalue(), end='')
+
+        f.close()
 
 
 if __name__ == '__main__':
