@@ -64,6 +64,15 @@ def main():
     url_pattern = r'(?:\[(?P<title>[^\]]*)\]\(|\b)(?P<url>(?:(?:https?)://|(?:www)\.)[-A-Z0-9+&@/%?=~_|$!:,.;]*[A-Z0-9+&@#/%=~_|$])\)?'
     regex = re.compile(url_pattern, flags=re.IGNORECASE)
 
+    f = io.StringIO(initial_value='')
+
+    if opts.replace_url:
+
+        # http://effbot.org/librarybook/stringio.htm pretty cool, right?
+
+        for line in opts.files:
+            f.write(re.sub(regex, handle_matchobj, line))
+
     if opts.create_list:
 
         matches = [m.groupdict() for m in re.finditer(url_pattern, ''.join(opts.files), flags=re.IGNORECASE)]
@@ -71,19 +80,11 @@ def main():
         for match in matches:
             url = match.get('url')
             title = match.get('title') or get_title(url)
-            print('*', to_markdown(title, url))
+            f.write('* {link}'.format(link=to_markdown(title, url)))
 
-    if opts.replace_url:
+    print(f.getvalue(), end='')
 
-        # http://effbot.org/librarybook/stringio.htm pretty cool, right?
-        f = io.StringIO('')
-
-        for line in opts.files:
-            f.write(re.sub(regex, handle_matchobj, line))
-
-        print(f.getvalue(), end='')
-
-        f.close()
+    f.close()
 
 
 if __name__ == '__main__':
