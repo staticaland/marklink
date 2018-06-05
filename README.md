@@ -1,6 +1,6 @@
 # marklink
 
-`marklink` is a tool for grabbing the title of an URL found in `stdin` replacing the raw url with a markdown link.
+`marklink` replaces URLs found in text with a Markdown link containing the HTML `<title>` tag.
 
 Its goal is to increase the ergonomics of writing markdown, thus leading you to write more. Effortlessly.
 
@@ -27,19 +27,23 @@ Some useful links:
 
 # Usage
 
-```
 usage: marklink [-h] [-q] [-r] [-l] [files]
 
-Args that start with '--' (eg. -q) can also be set in a config file
-(~/.marklink). If an arg is specified in more than one place, then 
-commandline values override config file values which override defaults.
+	Args that start with '--' (eg. -q) can also be set in a config file
+	(~/.marklink). Config file syntax allows: key=value, flag=true, stuff=[a,b,c]
+	(for details, see syntax at https://goo.gl/R74nmi). If an arg is specified in
+	more than one place, then commandline values override config file values which
+	override defaults.
 
-positional arguments:
-  files
+	positional arguments:
+	files
 
-optional arguments:
-  -h, --help          show this help message and exit
-  -q, --remove-query  remove query parameters
-  -r, --replace-url   remove query parameters
-  -l, --create-list   remove query parameters
-```
+	optional arguments:
+	-h, --help          show this help message and exit
+	-q, --remove-query  remove query parameters
+	-r, --replace-url   replace plain URLs with markdown links
+	-l, --create-list   create a markdown list from all URLs
+
+# Making it faster
+
+Maybe split string on spaces and paralell process.
