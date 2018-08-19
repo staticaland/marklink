@@ -12,9 +12,8 @@ import sys
 def get_options():
     p = configargparse.ArgParser(default_config_files=['~/.marklink'])
     p.add('files', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
+    p.add('-f', '--format', help='which format', type=str, default='md', choices=['md', 'org', 'html'])
     p.add('-q', '--remove-query', help='remove query parameters', action='store_true', default=False)
-    p.add('-r', '--replace-url', help='replace plain URLs with markdown links', action='store_true', default=True)
-    p.add('-l', '--create-list', help='create a markdown list from all URLs', action='store_true', default=False)
     return p.parse_args()
 
 
@@ -38,9 +37,19 @@ def remove_query_args(url):
     return url.rsplit('?', maxsplit=1)[0]
 
 
-def to_markdown(title, url):
+def to_md(title, url):
 
-    return('[{title}]({url})'.format(title=title, url=url))
+    return '[{title}]({url})'.format(title=title, url=url)
+
+
+def to_html(title, url):
+
+    return '<a href="{url}">{title}</a>'.format(url=url, title=title)
+
+
+def to_org(title, url):
+
+    return '[[{url}]][[{title}]]'.format(title=title, url=url)
 
 
 def handle_matchobj(matchobj):
@@ -54,37 +63,30 @@ def handle_matchobj(matchobj):
     if not title:
         title = get_title(url)
 
-    return to_markdown(title, url)
+    fmt = get_options().format
+
+    if fmt == 'md':
+        return to_md(title, url)
+    elif fmt == 'org':
+        return to_org(title, url)
+    elif fmt == 'html':
+        return to_html(title, url)
 
 
 def main():
 
     opts = get_options()
 
+    # Make this more readable
     url_pattern = r'(?:\[(?P<title>[^\]]*)\]\(|\b)(?P<url>(?:(?:https?)://|(?:www)\.)[-A-Z0-9+&@/%?=~_|$!:,.;]*[A-Z0-9+&@#/%=~_|$])\)?'
     regex = re.compile(url_pattern, flags=re.IGNORECASE)
 
     f = io.StringIO(initial_value='')
 
-    if opts.replace_url:
-
-        # http://effbot.org/librarybook/stringio.htm pretty cool, right?
-
-        for line in opts.files:
-            f.write(re.sub(regex, handle_matchobj, line))
-
-    if opts.create_list:
-
-        matches = [m.groupdict() for m in re.finditer(url_pattern, ''.join(opts.files), flags=re.IGNORECASE)]
-
-        for match in matches:
-            url = match.get('url')
-            title = match.get('title') or get_title(url)
-            f.write('* {link}'.format(link=to_markdown(title, url)))
+    for line in opts.files:
+        f.write(re.sub(regex, handle_matchobj, line))
 
     print(f.getvalue(), end='')
-
-    f.close()
 
 
 if __name__ == '__main__':
