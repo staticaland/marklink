@@ -2,13 +2,27 @@
 
 `marklink` replaces URLs found in text with a hyperlink containing the HTML `<title>` tag.
 
-Its goal is to increase the ergonomics of writing, thus leading you to write more. Effortlessly.
+Its goal is to increase the ergonomics of writing, thus leading you to write more. Effortlessly. There's also the joy of having robots helping you.
 
 Inspired by [Titler by Brett Terpstra](http://brettterpstra.com/2015/02/18/titler-system-service/) for Mac OS and [org-cliplink](https://github.com/rexim/org-cliplink) for Emacs.
 
 The ultimate goal of this project is to be cross platform and support many formats, workflows and editors.
 
 ![Using marklink](marklink.gif)
+
+# Installation
+
+With pip:
+
+```
+pip install --user git+https://github.com/staticaland/marklink.git#egg=marklink
+```
+
+With pipsi:
+
+```
+pipsi install git+https://github.com/staticaland/marklink.git#egg=marklink
+```
 
 # Editor integration
 
@@ -68,6 +82,8 @@ optional arguments:
 ```
 
 # Plans
+
+Add to Python Package Index.
 
 Make it faster. Do concurrent HTTP requests somehow.
 
