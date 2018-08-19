@@ -49,7 +49,7 @@ def to_html(title, url):
 
 def to_org(title, url):
 
-    return '[[{url}]][[{title}]]'.format(title=title, url=url)
+    return '[[{url}][{title}]]'.format(title=title, url=url)
 
 
 def handle_matchobj(matchobj):

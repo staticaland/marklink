@@ -23,7 +23,7 @@ class MarklinkTestCase(unittest.TestCase):
         self.assertEqual(actual_output, expected_output)
 
     def test_to_org(self):
-        expected_output = '[[https://stackoverflow.com/]][[Stack Overflow]]'
+        expected_output = '[[https://stackoverflow.com/][Stack Overflow]]'
         actual_output = marklink.to_org(title='Stack Overflow', url='https://stackoverflow.com/')
         self.assertEqual(actual_output, expected_output)
 
