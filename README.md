@@ -43,11 +43,21 @@ Some useful links:
 
 ## Emacs
 
-Use `shell-command-on-region`. You may have to set the following if you like an exotic `$SHELL`:
+Use `shell-command-on-region`. This is the best I have come up with (as an Emacs beginner):
 
 ```
-(setq explicit-shell-file-name "/bin/bash")
-(setq shell-file-name explicit-shell-file-name)
+(defun marklink-org ()
+  (interactive)
+  (save-excursion
+    (shell-command-on-region (mark) (point) "marklink --format org" (buffer-name) t)
+  ))
+```
+
+You may have to set the following if you like an exotic `$SHELL`:
+
+```
+  (setq explicit-shell-file-name "/bin/bash")
+  (setq shell-file-name explicit-shell-file-name)
 ```
 
 Useful stuff:
