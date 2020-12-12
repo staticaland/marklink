@@ -62,6 +62,7 @@ def handle_matchobj(matchobj):
 
     if not title:
         title = get_title(url)
+        title = title.strip()
 
     fmt = get_options().format
 

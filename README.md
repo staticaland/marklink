@@ -1,8 +1,8 @@
 # marklink
 
-`marklink` replaces URLs found in text with a hyperlink containing the HTML `<title>` tag.
+`marklink` replaces URLs found in text with a hyperlink with the contents of the `<title>` tag in the HTML of the URL.
 
-Its goal is to increase the ergonomics of writing, thus leading you to write more. Effortlessly. There's also the joy of having robots helping you.
+Its goal is to increase the ergonomics of writing, thus leading you to write more. You get to experience the joy of having robots helping you while writing.
 
 Inspired by [Titler by Brett Terpstra](http://brettterpstra.com/2015/02/18/titler-system-service/) for Mac OS and [org-cliplink](https://github.com/rexim/org-cliplink) for Emacs.
 
@@ -18,10 +18,10 @@ With pip:
 pip install --user git+https://github.com/staticaland/marklink.git#egg=marklink
 ```
 
-With pipsi:
+With pipx:
 
 ```
-pipsi install git+https://github.com/staticaland/marklink.git#egg=marklink
+pipx install 'git+https://github.com/staticaland/marklink.git#egg=marklink'
 ```
 
 # Editor integration
@@ -43,7 +43,9 @@ Some useful links:
 
 ## Emacs
 
-Use `shell-command-on-region`. This is the best I have come up with (as an Emacs beginner):
+I use `reformatter.el` (see [my reformatter.el config here](https://github.com/staticaland/doom-emacs-config/blob/master/modules/editor/reformatter/config.el)).
+
+You can also use some variant of `shell-command-on-region`:
 
 ```
 (defun marklink-org ()
@@ -59,12 +61,6 @@ You may have to set the following if you like an exotic `$SHELL`:
   (setq explicit-shell-file-name "/bin/bash")
   (setq shell-file-name explicit-shell-file-name)
 ```
-
-Useful stuff:
-
-[alphapapa/org-protocol-capture-html: Capture HTML from the browser selection into Emacs as org-mode content](https://github.com/alphapapa/org-protocol-capture-html)
-
-[Reddit - bookmarklet](https://www.reddit.com/r/emacs/comments/682wsu/bookmarklet_to_copy_link_to_clipboard_formatted/)
 
 ## Atom, Sublime Text, VS Code et al.
 
