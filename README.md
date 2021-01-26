@@ -1,8 +1,8 @@
 # marklink
 
 `marklink` replaces URLs found in text with a markup hyperlink with the contents
-of the `<title>` tag in the HTML of the URL. It works like a typical Unix filter
-program:
+of the `<title>` tag in the HTML of the URL. It works like a typical [Unix
+filter](https://en.wikipedia.org/wiki/Filter_(software)):
 
 ```sh
 echo "I like https://github.com?something=what" | marklink --format md --remove-query
