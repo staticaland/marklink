@@ -41,18 +41,6 @@ nnoremap <leader>l :%!marklink<CR>
 vnoremap <leader>l :!marklink<CR>
 ```
 
-Some useful links:
-
-[Using external filter commands to reformat HTML](http://vimcasts.org/episodes/using-external-filter-commands-to-reformat-html/)
-
-[Formatting text with par](http://vimcasts.org/episodes/formatting-text-with-par/)
-
-[GitHub - ferrine/md-img-paste.vim: paste image to markdown](https://github.com/ferrine/md-img-paste.vim)
-
-[Vim Tip: Paste Markdown Link with Automatic Title Fetching | Ben Congdon](https://benjamincongdon.me/blog/2020/06/27/Vim-Tip-Paste-Markdown-Link-with-Automatic-Title-Fetching/)
-
-[GitHub - alphapapa/org-web-tools: View, capture, and archive Web pages in Org-mode](https://github.com/alphapapa/org-web-tools)
-
 ## Emacs
 
 I use `reformatter.el` (see [my reformatter.el config here](https://github.com/staticaland/doom-emacs-config/blob/master/modules/editor/reformatter/config.el)).
@@ -63,15 +51,14 @@ You can also use some variant of `shell-command-on-region`:
 (defun marklink-org ()
   (interactive *)
   (save-excursion
-    (shell-command-on-region (mark) (point) "marklink --format org" (buffer-name) t)
-  ))
+    (shell-command-on-region (mark) (point) "marklink --format org" (buffer-name) t)))
 ```
 
 You may have to set the following if you like an exotic `$SHELL`:
 
 ```elisp
-  (setq explicit-shell-file-name "/bin/bash")
-  (setq shell-file-name explicit-shell-file-name)
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name explicit-shell-file-name)
 ```
 
 ## Atom, Sublime Text, VS Code et al.
@@ -101,6 +88,37 @@ optional arguments:
                         which format
   -q, --remove-query    remove query parameters
 ```
+
+# Other alternatives
+
+Use a bookmarklet ([source](https://old.reddit.com/r/emacs/comments/682wsu/bookmarklet_to_copy_link_to_clipboard_formatted/)):
+
+```js
+javascript:(
+    function(){
+        prompt(
+            '',
+            '[['
+                +location.href
+                +']['
+                +document.title.replace(/ [-,|].*$/,'')
+                +']]'
+        )
+    }
+)()
+```
+
+Some useful links:
+
+[Using external filter commands to reformat HTML](http://vimcasts.org/episodes/using-external-filter-commands-to-reformat-html/)
+
+[Formatting text with par](http://vimcasts.org/episodes/formatting-text-with-par/)
+
+[GitHub - ferrine/md-img-paste.vim: paste image to markdown](https://github.com/ferrine/md-img-paste.vim)
+
+[Vim Tip: Paste Markdown Link with Automatic Title Fetching | Ben Congdon](https://benjamincongdon.me/blog/2020/06/27/Vim-Tip-Paste-Markdown-Link-with-Automatic-Title-Fetching/)
+
+[GitHub - alphapapa/org-web-tools: View, capture, and archive Web pages in Org-mode](https://github.com/alphapapa/org-web-tools)
 
 # Plans
 
