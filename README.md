@@ -10,17 +10,24 @@ The ultimate goal of this project is to be cross platform and support many forma
 
 ![Using marklink](marklink.gif)
 
+# Example
+
+```sh
+echo "https://github.com?something=what" | marklink --format md --remove-query
+[GitHub: Where the world builds software · GitHub](https://github.com)
+```
+
 # Installation
 
 With pip:
 
-```
+```sh
 pip install --user git+https://github.com/staticaland/marklink.git#egg=marklink
 ```
 
 With pipx:
 
-```
+```sh
 pipx install 'git+https://github.com/staticaland/marklink.git#egg=marklink'
 ```
 
@@ -41,15 +48,17 @@ Some useful links:
 
 [GitHub - ferrine/md-img-paste.vim: paste image to markdown](https://github.com/ferrine/md-img-paste.vim)
 
+https://benjamincongdon.me/blog/2020/06/27/Vim-Tip-Paste-Markdown-Link-with-Automatic-Title-Fetching/
+
 ## Emacs
 
 I use `reformatter.el` (see [my reformatter.el config here](https://github.com/staticaland/doom-emacs-config/blob/master/modules/editor/reformatter/config.el)).
 
 You can also use some variant of `shell-command-on-region`:
 
-```
+```elisp
 (defun marklink-org ()
-  (interactive)
+  (interactive *)
   (save-excursion
     (shell-command-on-region (mark) (point) "marklink --format org" (buffer-name) t)
   ))
@@ -57,7 +66,7 @@ You can also use some variant of `shell-command-on-region`:
 
 You may have to set the following if you like an exotic `$SHELL`:
 
-```
+```elisp
   (setq explicit-shell-file-name "/bin/bash")
   (setq shell-file-name explicit-shell-file-name)
 ```
@@ -66,9 +75,12 @@ You may have to set the following if you like an exotic `$SHELL`:
 
 Pull requests most welcome.
 
+You may want to consider [Paste URL at the Visual Studio
+Marketplace](https://marketplace.visualstudio.com/items?itemName=kukushi.pasteurl).
+
 # Usage
 
-```
+```sh
 usage: marklink [-h] [-f {md,org,html}] [-q] [files]
 
 Args that start with '--' (eg. -f) can also be set in a config file
