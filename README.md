@@ -41,6 +41,9 @@ nnoremap <leader>l :%!marklink<CR>
 vnoremap <leader>l :!marklink<CR>
 ```
 
+Inspired by the [Vim Koan](https://blog.sanctum.geek.nz/vim-koans/) *Master Wq
+and the Markdown acolyte*.
+
 ## Emacs
 
 I use `reformatter.el` (see [my reformatter.el config here](https://github.com/staticaland/doom-emacs-config/blob/master/modules/editor/reformatter/config.el)).
