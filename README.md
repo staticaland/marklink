@@ -1,6 +1,14 @@
 # marklink
 
-`marklink` replaces URLs found in text with a hyperlink with the contents of the `<title>` tag in the HTML of the URL.
+`marklink` replaces URLs found in text with a markup hyperlink with the contents
+of the `<title>` tag in the HTML of the URL. It works like a typical Unix filter
+program:
+
+```sh
+echo "I like https://github.com?something=what" | marklink --format md --remove-query
+
+I like [GitHub: Where the world builds software · GitHub](https://github.com)
+```
 
 Its goal is to increase the ergonomics of writing, thus leading you to write more. You get to experience the joy of having robots helping you while writing.
 
@@ -9,14 +17,6 @@ Inspired by [Titler by Brett Terpstra](http://brettterpstra.com/2015/02/18/title
 The ultimate goal of this project is to be cross platform and support many formats, workflows and editors.
 
 ![Using marklink](marklink.gif)
-
-# Example
-
-```sh
-echo "I like https://github.com?something=what" | marklink --format md --remove-query
-
-I like [GitHub: Where the world builds software · GitHub](https://github.com)
-```
 
 # Installation
 
