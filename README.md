@@ -20,13 +20,13 @@ I like [GitHub: Where the world builds software · GitHub](https://github.com)
 
 # Installation
 
-With pip:
+With `pip`:
 
 ```sh
 pip install --user git+https://github.com/staticaland/marklink.git#egg=marklink
 ```
 
-With pipx:
+With `pipx`:
 
 ```sh
 pipx install 'git+https://github.com/staticaland/marklink.git#egg=marklink'
@@ -49,7 +49,9 @@ Some useful links:
 
 [GitHub - ferrine/md-img-paste.vim: paste image to markdown](https://github.com/ferrine/md-img-paste.vim)
 
-https://benjamincongdon.me/blog/2020/06/27/Vim-Tip-Paste-Markdown-Link-with-Automatic-Title-Fetching/
+[Vim Tip: Paste Markdown Link with Automatic Title Fetching | Ben Congdon](https://benjamincongdon.me/blog/2020/06/27/Vim-Tip-Paste-Markdown-Link-with-Automatic-Title-Fetching/)
+
+[GitHub - alphapapa/org-web-tools: View, capture, and archive Web pages in Org-mode](https://github.com/alphapapa/org-web-tools)
 
 ## Emacs
 
