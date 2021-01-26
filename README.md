@@ -13,8 +13,9 @@ The ultimate goal of this project is to be cross platform and support many forma
 # Example
 
 ```sh
-echo "https://github.com?something=what" | marklink --format md --remove-query
-[GitHub: Where the world builds software · GitHub](https://github.com)
+echo "I like https://github.com?something=what" | marklink --format md --remove-query
+
+I like [GitHub: Where the world builds software · GitHub](https://github.com)
 ```
 
 # Installation
