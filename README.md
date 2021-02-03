@@ -41,8 +41,8 @@ nnoremap <leader>l :%!marklink<CR>
 vnoremap <leader>l :!marklink<CR>
 ```
 
-Inspired by the [Vim Koan](https://blog.sanctum.geek.nz/vim-koans/) *Master Wq
-and the Markdown acolyte*.
+This is reminiscent of the [Vim Kōan *Master Wq and the Markdown
+acolyte*](https://blog.sanctum.geek.nz/vim-koans/).
 
 ## Emacs
 
