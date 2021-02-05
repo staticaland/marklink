@@ -1,0 +1,28 @@
+[tool]
+[tool.poetry]
+name = "marklink"
+version = "1.0.0"
+description = "Create markdown links from text containing URLs"
+license = "MIT"
+authors = ["Anders K. Pettersen <andstatical@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+marklink = "marklink:main"
+
+[tool.poetry.dependencies]
+python = ">=3.8.0"
+beautifulsoup4 = "*"
+configargparse = "*"
+lxml = "*"
+requests = "*"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7"
+black = "*"
+pytest = "^6.2.2"
+ipython = "^7.20.0"
+ipdb = "^0.13.4"
+
+[tool.dephell.main]
+from = {format = "poetry", path = "pyproject.toml"}
