@@ -23,6 +23,7 @@ black = "*"
 pytest = "^6.2.2"
 ipython = "^7.20.0"
 ipdb = "^0.13.4"
+vcrpy = "^4.1.1"
 
 [tool.dephell.main]
 from = {format = "poetry", path = "pyproject.toml"}
