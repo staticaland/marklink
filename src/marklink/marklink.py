@@ -19,7 +19,8 @@ def remove_prefix(text, prefix):
 
 def transform_youtube(url, title):
     if "youtube.com" in url:
-        return re.sub(r" - YouTube$", "", title)
+        oembed_json = requests.get(f"https://www.youtube.com/oembed?format=json&url={url}").json()
+        return oembed_json.get("title", title)
     return None
 
 
