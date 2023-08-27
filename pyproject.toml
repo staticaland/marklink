@@ -21,7 +21,7 @@ requests = "*"
 flake8 = "^3.7"
 black = "*"
 pytest = "^6.2.2"
-ipython = "^7.20.0"
+ipython = "^8.10.0"
 ipdb = "^0.13.4"
 vcrpy = "^4.1.1"
 
