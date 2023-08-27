@@ -29,14 +29,18 @@ def remove_prefix(text: str, prefix: str) -> str:
 
 def transform_youtube(url: str, title: str) -> str:
     """
-    Transform the title of a YouTube URL.
+    Retrieve and return the title of a YouTube video using oEmbed.
+
+    This function uses the oEmbed API to fetch the actual title of a YouTube video. 
+    If the YouTube URL is valid and accessible via oEmbed, the function will return the title 
+    provided by the oEmbed API; otherwise, it will return the original title passed as an argument.
 
     Args:
-        url (str): The YouTube URL.
-        title (str): The original title.
+        url (str): The YouTube URL to fetch the title from.
+        title (str): The original title to return in case oEmbed fails.
 
     Returns:
-        str: The transformed title.
+        str: The title obtained from oEmbed, or the original title if oEmbed is unsuccessful.
     """
     if "youtube.com" in url:
         oembed_json = requests.get(f"https://www.youtube.com/oembed?format=json&url={url}").json()
@@ -44,16 +48,20 @@ def transform_youtube(url: str, title: str) -> str:
     return None
 
 
+
 def transform_github(url: str, title: str) -> str:
     """
-    Transform the title of a GitHub URL.
+    Remove the "GitHub - " prefix from a GitHub page title.
+
+    If the given URL is a GitHub URL, this function removes the "GitHub - " prefix
+    commonly found in GitHub page titles. If the URL is not a GitHub URL, it returns None.
 
     Args:
-        url (str): The GitHub URL.
-        title (str): The original title.
+        url (str): The GitHub URL to be checked.
+        title (str): The original title, typically prefixed with "GitHub - ".
 
     Returns:
-        str: The transformed title.
+        str: The transformed title with the "GitHub - " prefix removed, or None if the URL is not a GitHub URL.
     """
     if "github.com" in url:
         return re.sub(r"^GitHub - ", "", title)
