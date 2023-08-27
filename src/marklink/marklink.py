@@ -11,20 +11,50 @@ import sys
 from .__version__ import __version__
 
 
-def remove_prefix(text, prefix):
+def remove_prefix(text: str, prefix: str) -> str:
+    """
+    Remove the specified prefix from the given text.
+
+    Args:
+        text (str): The text to remove the prefix from.
+        prefix (str): The prefix to remove.
+
+    Returns:
+        str: The text with the prefix removed.
+    """
     if text.startswith(prefix):
         return text[len(prefix) :]
     return text
 
 
-def transform_youtube(url, title):
+def transform_youtube(url: str, title: str) -> str:
+    """
+    Transform the title of a YouTube URL.
+
+    Args:
+        url (str): The YouTube URL.
+        title (str): The original title.
+
+    Returns:
+        str: The transformed title.
+    """
     if "youtube.com" in url:
         oembed_json = requests.get(f"https://www.youtube.com/oembed?format=json&url={url}").json()
         return oembed_json.get("title", title)
     return None
 
 
-def transform_github(url, title):
+def transform_github(url: str, title: str) -> str:
+    """
+    Transform the title of a GitHub URL.
+
+    Args:
+        url (str): The GitHub URL.
+        title (str): The original title.
+
+    Returns:
+        str: The transformed title.
+    """
     if "github.com" in url:
         return re.sub(r"^GitHub - ", "", title)
     return None
@@ -35,8 +65,13 @@ available_transformers.append(transform_youtube)
 available_transformers.append(transform_github)
 
 
-def get_options():
+def get_options() -> argparse.Namespace:
+    """
+    Get the command line options.
 
+    Returns:
+        argparse.Namespace: The command line options.
+    """
     p = configargparse.ArgParser(default_config_files=["~/.marklink"])
 
     p.add("files", nargs="?", type=argparse.FileType("r"), default=sys.stdin)
@@ -61,15 +96,24 @@ def get_options():
     p.add(
         "-t",
         "--transformers",
-        help="comma seperated list of transformers",
+        help="comma separated list of transformers",
         type=str,
         default="github,youtube",
     )
+
     return p.parse_args()
 
 
-def get_title(url):
+def get_title(url: str) -> str:
+    """
+    Get the title of a web page.
 
+    Args:
+        url (str): The URL of the web page.
+
+    Returns:
+        str: The title of the web page.
+    """
     if not url.startswith("http"):
         url = "https://" + url
 
@@ -85,29 +129,73 @@ def get_title(url):
     return title
 
 
-def remove_query_args(url):
+def remove_query_args(url: str) -> str:
+    """
+    Remove the query parameters from a URL.
 
-    # Let me know when this isn't good enough
+    Args:
+        url (str): The URL.
+
+    Returns:
+        str: The URL without the query parameters.
+    """
     return url.rsplit("?", maxsplit=1)[0]
 
 
-def to_md(title, url):
+def to_md(title: str, url: str) -> str:
+    """
+    Convert a title and URL to a Markdown link.
 
+    Args:
+        title (str): The title.
+        url (str): The URL.
+
+    Returns:
+        str: The Markdown link.
+    """
     return "[{title}]({url})".format(title=title, url=url)
 
 
-def to_html(title, url):
+def to_html(title: str, url: str) -> str:
+    """
+    Convert a title and URL to an HTML link.
 
+    Args:
+        title (str): The title.
+        url (str): The URL.
+
+    Returns:
+        str: The HTML link.
+    """
     return '<a href="{url}">{title}</a>'.format(url=url, title=title)
 
 
-def to_org(title, url):
+def to_org(title: str, url: str) -> str:
+    """
+    Convert a title and URL to an Org link.
 
+    Args:
+        title (str): The title.
+        url (str): The URL.
+
+    Returns:
+        str: The Org link.
+    """
     return "[[{url}][{title}]]".format(title=title, url=url)
 
 
-def handle_matchobj(matchobj, transformers, fmt):
+def handle_matchobj(matchobj: re.Match, transformers: list, fmt: str) -> str:
+    """
+    Handle a match object and return the formatted link.
 
+    Args:
+        matchobj (re.Match): The match object.
+        transformers (list): The list of transformers.
+        fmt (str): The format of the link.
+
+    Returns:
+        str: The formatted link.
+    """
     title = matchobj.group("title")
     url = matchobj.group("url")
 
@@ -128,16 +216,19 @@ def handle_matchobj(matchobj, transformers, fmt):
     if transformed_title:
         title = transformed_title
 
-    if fmt == "md":
-        return to_md(title, url)
-    elif fmt == "org":
-        return to_org(title, url)
-    elif fmt == "html":
-        return to_html(title, url)
+    format_mapper = {
+        'md': to_md,
+        'org': to_org,
+        'html': to_html,
+    }
+
+    return format_mapper[fmt](title, url)
 
 
-def main():
-
+def main() -> None:
+    """
+    The main function.
+    """
     opts = get_options()
 
     wanted_transformers = opts.transformers
@@ -171,7 +262,6 @@ def main():
         )
 
     print(f.getvalue(), end="")
-
 
 if __name__ == "__main__":
     main()
